@@ -1,21 +1,77 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Numbers from './Numbers';
 import './App.css';
 
 class App extends Component {
-  render() {
+    state = {
+        numbers: []
+    };
+
+randomizer = (event) => {
+
+    event.preventDefault();
+    const tmpArr = [];
+    let  stateNumbers = [...this.state.numbers];
+
+    for (let i = 0; i < 6; i++) {
+        tmpArr.push(Math.floor(Math.random() * 31) + 5);
+    }
+
+    tmpArr.sort();
+    stateNumbers = [...tmpArr];
+    this.setState({numbers: stateNumbers});
+};
+
+render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+        <div className="App">
+            <button onClick={this.randomizer}>New numbers</button>
+            <ul id="Menu">
+                {this.state.numbers.map(num => {
+                        console.log(num);
+                        return <Numbers num={num} />;
+                    }
+                )}
+            </ul>
+        </div>
     );
-  }
+}
 }
 
 export default App;
+
+
+// state = {
+//     id: '',
+//     numbers: []
+// };
+//
+// randomizer = (event) => {
+//
+//     event.preventDefault();
+//     const tmpArr = [];
+//     let  stateNumbers = [...this.state.numbers];
+//
+//     for (let i = 0; i < 6; i++) {
+//         tmpArr.push(Math.floor(Math.random() * 31) + 5);
+//     }
+//
+//     tmpArr.sort();
+//     stateNumbers = [...tmpArr];
+//     this.setState({numbers: stateNumbers});
+// };
+//
+// render() {
+//     return (
+//         <div className="App">
+//             <button onClick={this.randomizer}>New numbers</button>
+//             <ul>
+//                 {this.state.numbers.map(num => {
+//                         console.log(num);
+//                         return <Numbers num={num} />;
+//                     }
+//                 )}
+//             </ul>
+//         </div>
+//     );
+// }
